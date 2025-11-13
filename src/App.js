@@ -64,6 +64,10 @@ function Header() {
   );
 }
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizza = pizzas.length;
+
   return (
     <main className="menu">
       <h2>OUR MENU</h2>
@@ -71,40 +75,55 @@ function Menu() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas,
         voluptatibus?
       </p>
-      <div className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} />
-        ))}
-      </div>
+      {numPizza > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're working on our menu please visit later :)</p>
+      )}
     </main>
   );
 }
 function Pizza(props) {
+  // if (props.pizzaObj.soldOut) return null;
   return (
-    <div className="pizza">
+    <li className="pizza">
       <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
       <div>
         <h3>{props.pizzaObj.name}</h3>
         <p>{props.pizzaObj.ingredients}</p>
         <p>{props.pizzaObj.price}</p>
       </div>
-    </div>
+    </li>
   );
 }
 function Footer() {
   const houre = new Date().getHours();
   const openTime = 11;
   const closeTime = 22;
-  const condition = houre >= openTime && houre <= closeTime;
-  console.log(condition);
+  const conIsOpen = houre >= openTime && houre <= closeTime;
+  console.log(conIsOpen);
   // if (houre >= openTime && houre <= closeTime) alert("We are currentlty open");
   // else alert("We are currently close");
+  // if (!conIsOpen) return <p>We're not open yet :)</p>;
+
   return (
     <>
-      <p>
-        {new Date().toLocaleTimeString()} We're open until 22:00 . Come visit us
-        or order online.
-      </p>
+      <footer className="footer">
+        {conIsOpen ? (
+          <div className="order">
+            <p>we're open until {houre}:00. Come visit us or order online.</p>
+            <button className="btn">Order</button>
+          </div>
+        ) : (
+          <p>
+            We're happy to welcome you between {openTime}:00 and {closeTime}:00.
+          </p>
+        )}
+      </footer>
     </>
   );
 }
