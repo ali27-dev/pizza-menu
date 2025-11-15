@@ -87,15 +87,15 @@ function Menu() {
     </main>
   );
 }
-function Pizza(props) {
-  // if (props.pizzaObj.soldOut) return null;
+function Pizza({ pizzaObj }) {
+  // if (pizzaObj.soldOut) return null;
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <p>{props.pizzaObj.price}</p>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <p>{pizzaObj.price}</p>
       </div>
     </li>
   );
@@ -114,10 +114,7 @@ function Footer() {
     <>
       <footer className="footer">
         {conIsOpen ? (
-          <div className="order">
-            <p>we're open until {houre}:00. Come visit us or order online.</p>
-            <button className="btn">Order</button>
-          </div>
+          <Order openTime={openTime} closeTime={closeTime} />
         ) : (
           <p>
             We're happy to welcome you between {openTime}:00 and {closeTime}:00.
@@ -125,5 +122,19 @@ function Footer() {
         )}
       </footer>
     </>
+  );
+}
+
+function Order({ openTime, closeTime }) {
+  return (
+    <div className="order">
+      <div className="order">
+        <p>
+          we're open from {openTime}:00 to {closeTime}:00. Come visit us or
+          order online.
+        </p>
+        <button className="btn">Order</button>
+      </div>
+    </div>
   );
 }
